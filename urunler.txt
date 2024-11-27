@@ -1,35 +1,35 @@
-   Armut Santa Maria - 4
-            Muz Yerli - 470
-            Çilek - 12
-            Domates - 114
-            Hıyar - 119
-            Kırmızı Biber - 111
-            Patlıcan Kemer - 127
-            Havuç Beypazarı - 2957
-            Mandalina - 1206
-            Yumurtacım 15li Koli Yumurta - 8697581700010
-            Çikolata Parçalı Kruvasan 65G - 5680
-            Kruvasan 55G TR. - 5398
-            Kivi & Kiwi - 142
-            Mandalina Satsuma - 48
-            Yerli Pomelo - 2112
-            Kereviz KG. - 124
-            İthal Muz - 47
-            Yedigün 1.5L - 8690574114764
-            Yedigün 1L - 8690574115075
-            Balkan Çöreği 85G TR. - 5400
-            Üzümlü Çörek 80G TR. - 5399
-            Baget Ekmek Kepekli 75G TR. - 3768
-            Baget Ekmek Sade Uzun 255G TR. - 3708
-            Baget Ekmek Sade 75G TR. - 3767
-            KAŞARLI POĞAÇA ADT.73 G (LLT) - 3064
-            DEREOTLU POĞAÇA ADT.73 G (LLT) - 3065
-            PATATES KG. - 2422
-            ELMA GOLDEN KG. - 309
-            ELMA GRANNY KG. - 337
-            BADEM KAVRULMUŞ - 9701
-            SOĞAN KURU DÖKME KG. - 196
-            KOMŞU İĞDE PAKET - 5596
-            TATLI İTHAL PATATES - 1113
-            LİMON KG. - 81
-            GREYFURT KG. - 84
+Armut Santa Maria - 4
+Muz Yerli - 470
+Çilek - 12
+Domates - 114
+Hıyar - 119
+Kırmızı Biber - 111
+Patlıcan Kemer - 127
+Havuç Beypazarı - 2957
+Mandalina - 1206
+Yumurtacım 15li Koli Yumurta - 8697581700010
+Çikolata Parçalı Kruvasan 65G - 5680
+Kruvasan 55G TR. - 5398
+Kivi & Kiwi - 142
+Mandalina Satsuma - 48
+Yerli Pomelo - 2112
+Kereviz KG. - 124
+İthal Muz - 47
+Yedigün 1.5L - 8690574114764
+Yedigün 1L - 8690574115075
+Balkan Çöreği 85G TR. - 5400
+Üzümlü Çörek 80G TR. - 5399
+Baget Ekmek Kepekli 75G TR. - 3768
+Baget Ekmek Sade Uzun 255G TR. - 3708
+Baget Ekmek Sade 75G TR. - 3767
+KAŞARLI POĞAÇA ADT.73 G (LLT) - 3064
+DEREOTLU POĞAÇA ADT.73 G (LLT) - 3065
+PATATES KG. - 2422
+ELMA GOLDEN KG. - 309
+ELMA GRANNY KG. - 337
+BADEM KAVRULMUŞ - 9701
+SOĞAN KURU DÖKME KG. - 196
+KOMŞU İĞDE PAKET - 5596
+TATLI İTHAL PATATES - 1113
+LİMON KG. - 81
+GREYFURT KG. - 84
