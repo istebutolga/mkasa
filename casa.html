@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MKasa Kodları</title>
+    <title>Meyve ve Sebze Kodları</title>
     <style>
         body {
             display: flex;
@@ -11,47 +11,53 @@
             align-items: flex-start;
             height: 100vh;
             margin: 0;
-            background: linear-gradient(135deg, #a8edea, #fed6e3);
-            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom, #f7f8fa, #eaeef3);
+            font-family: 'Roboto', sans-serif;
             color: #333;
-            padding-top: 20px;
+            padding: 20px;
         }
 
         .container {
-            width: 90%;
-            max-width: 700px;
+            width: 100%;
+            max-width: 800px;
             background: #fff;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            padding: 20px;
+            padding: 30px;
             text-align: center;
         }
 
         h1 {
-            font-size: 32px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #333;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #202124;
             letter-spacing: 1px;
         }
 
         .search-box {
             width: 100%;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            position: relative;
         }
 
         .search-box input {
             width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            border: 2px solid #ddd;
-            border-radius: 10px;
+            max-width: 600px;
+            padding: 15px 20px;
+            font-size: 18px;
+            border: 1px solid #ddd;
+            border-radius: 50px;
             outline: none;
-            transition: border-color 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
         }
 
         .search-box input:focus {
-            border-color: #aaa;
+            border-color: #4285f4;
+            box-shadow: 0 4px 15px rgba(66, 133, 244, 0.4);
         }
 
         .list {
@@ -60,67 +66,97 @@
             padding: 0;
             max-height: 400px;
             overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background: #f7f8fa;
         }
 
         .list li {
             font-size: 20px;
-            font-weight: bold;
+            font-weight: 500;
             padding: 15px;
-            margin: 10px 0;
-            background: #f7f7f7;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s, box-shadow 0.2s;
+            margin: 5px 10px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s ease;
+            cursor: pointer;
         }
 
         .list li:hover {
-            transform: scale(1.02);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            background: #e3f2fd;
+            color: #0b73f2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         .list li:nth-child(even) {
-            background: #eef9f9;
+            background: #f9f9f9;
         }
 
         .recent-searches {
-            margin-top: 20px;
+            margin-top: 30px;
             padding-top: 20px;
             border-top: 2px solid #ddd;
-            text-align: left;
+            text-align: center;
         }
 
         .recent-searches h2 {
             font-size: 24px;
             font-weight: 600;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
         }
 
         .recent-searches ul {
             list-style: none;
             padding: 0;
-            margin: 0;
+            margin: 0 auto;
+            max-width: 600px;
         }
 
         .recent-searches ul li {
             font-size: 18px;
             margin: 5px 0;
             color: #555;
+            padding: 10px;
+            border-radius: 8px;
+            background: #f1f3f4;
+            transition: all 0.2s ease;
+        }
+
+        .recent-searches ul li:hover {
+            background: #dce4ed;
+            color: #0b73f2;
+        }
+
+        /* Scrollbar styling */
+        .list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .list::-webkit-scrollbar-thumb {
+            background: #ddd;
+            border-radius: 4px;
+        }
+
+        .list::-webkit-scrollbar-thumb:hover {
+            background: #bbb;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Meyve, Sebze, MFırın ve Diğer Kodları (Creator By Tolga Öztürk)</h1>
+        <h1>Meyve ve Sebze Kodları</h1>
         <div class="search-box">
             <input 
                 type="text" 
                 id="searchInput" 
-                placeholder="Aranacak ilgili ürünün adı..." 
+                placeholder="Aramak istediğiniz ürünü yazın..." 
                 onkeyup="filterList()"
             />
         </div>
         <ul class="list" id="fruitList">
-            <li>Elma Starking - 28</li>
+<li>Elma Starking - 28</li>
             <li>Armut Santa Maria - 4</li>
             <li>Muz Yerli - 470</li>
             <li>Çilek - 12</li>
@@ -156,9 +192,7 @@
             <li>TATLI İTHAL PATATES - 1113</li>
             <li>LİMON KG. - 81</li>
             <li>GREYFURT KG. - 84</li>
-            
-            
-            
+            <li>
             
         </ul>
         <div class="recent-searches">
@@ -171,72 +205,63 @@
 
     <script>
         const recentSearchList = document.getElementById('recentSearchList');
-        const maxRecentSearches = 5; // Maksimum son arama sayısı
-        let badWords = []; // Kötü kelimeler listesini dinamik olarak dolduracağız
+        const fruitListContainer = document.getElementById('fruitList');
+        const fruitListItems = Array.from(fruitListContainer.getElementsByTagName('li'));
+        const turkishMap = {
+            'i': 'ı',
+            'ı': 'i',
+            'o': 'ö',
+            'ö': 'o',
+            'u': 'ü',
+            'ü': 'u',
+            'ç': 'c',
+            'c': 'ç',
+            'ş': 's',
+            's': 'ş',
+            'ğ': 'g',
+            'g': 'ğ'
+        };
 
-        // Sayfa yüklendiğinde kötü kelime listesini API'den çek
-        document.addEventListener('DOMContentLoaded', async () => {
-            try {
-                // API'den kötü kelimeler listesi çekiliyor
-                const response = await fetch('https://github.com/LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words/blob/master/tr'); // Gerçek bir API adresi kullanılmalı
-                const data = await response.json();
-                badWords = data.badWords || []; // Çekilen kötü kelimeler listesi
-                console.log('Kötü kelimeler başarıyla yüklendi:', badWords);
-            } catch (error) {
-                console.error('Kötü kelimeler yüklenirken bir hata oluştu:', error);
-            }
-        });
-
-        function filterList() {
-            const input = document.getElementById('searchInput');
-            const filter = input.value.toLowerCase();
-            const ul = document.getElementById('fruitList');
-            const li = ul.getElementsByTagName('li');
-
-            if (filter.trim() !== "") {
-                updateRecentSearches(filter); // Son arananları güncelle
-            }
-
-            for (let i = 0; i < li.length; i++) {
-                const text = li[i].textContent || li[i].innerText;
-                if (text.toLowerCase().indexOf(filter) > -1) {
-                    li[i].style.display = "";
-                } else {
-                    li[i].style.display = "none";
-                }
-            }
+        // Türkçe harfleri normalize eden fonksiyon
+        function normalizeTurkish(str) {
+            return str.toLowerCase().replace(/[ıçöüğş]/g, (char) => turkishMap[char] || char);
         }
 
-        function updateRecentSearches(searchTerm) {
-            const sanitizedTerm = sanitizeInput(searchTerm); // Sansür uygula
+        // Listeyi alfabetik sıraya göre yeniden düzenler
+        function sortListAlphabetically() {
+            fruitListItems.sort((a, b) => {
+                const textA = normalizeTurkish(a.textContent || a.innerText);
+                const textB = normalizeTurkish(b.textContent || b.innerText);
+                return textA.localeCompare(textB);
+            });
+            fruitListItems.forEach(item => fruitListContainer.appendChild(item));
+        }
 
-            // Eğer arama terimi daha önce eklenmişse, eskiyi kaldır
-            const existingItem = Array.from(recentSearchList.children).find(
-                (item) => item.textContent.toLowerCase() === sanitizedTerm.toLowerCase()
-            );
-            if (existingItem) {
-                recentSearchList.removeChild(existingItem);
+        // Listeyi filtrelemek için kullanılan fonksiyon
+        function filterList() {
+            const input = normalizeTurkish(document.getElementById('searchInput').value);
+            for (const item of fruitListItems) {
+                const text = normalizeTurkish(item.textContent || item.innerText);
+                item.style.display = text.includes(input) ? "" : "none";
             }
+            if (input.trim()) updateRecentSearches(input);
+        }
 
-            // Yeni arama terimini listeye ekle
-            const newItem = document.createElement('li');
-            newItem.textContent = sanitizedTerm;
-            recentSearchList.insertBefore(newItem, recentSearchList.firstChild);
+        // Son arananlar listesini güncelleyen fonksiyon
+        function updateRecentSearches(searchTerm) {
+            if ([...recentSearchList.children].some(item => item.textContent === searchTerm)) return;
 
-            // Maksimum öğe sayısını aşarsa, eskiyi sil
-            if (recentSearchList.children.length > maxRecentSearches) {
+            const li = document.createElement('li');
+            li.textContent = searchTerm;
+            recentSearchList.prepend(li);
+
+            if (recentSearchList.children.length > 5) {
                 recentSearchList.removeChild(recentSearchList.lastChild);
             }
         }
 
-        function sanitizeInput(input) {
-            for (const badWord of badWords) {
-                if (input.includes(badWord)) {
-                    return "***"; // Kötü kelimeyi sansürle
-                }
-            }
-            return input;
-        }
+        // Sayfa yüklendiğinde listeyi sıralar
+        document.addEventListener('DOMContentLoaded', sortListAlphabetically);
     </script>
 </body>
 </html>
