@@ -59,7 +59,7 @@
             box-shadow: 0 4px 15px rgba(66, 133, 244, 0.4);
         }
 
-        .list {
+        .list, .favorites-list {
             list-style: none;
             margin: 0;
             padding: 0;
@@ -70,7 +70,7 @@
             background: #f7f8fa;
         }
 
-        .list li {
+        .list li, .favorites-list li {
             font-size: 18px;
             padding: 20px 30px;
             margin: 10px;
@@ -83,7 +83,7 @@
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .list li:hover {
+        .list li:hover, .favorites-list li:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
         }
@@ -120,35 +120,17 @@
             color: #4285f4;
         }
 
-        .favorites {
-            margin-top: 40px;
-        }
-
         h2 {
             font-size: 28px;
             font-weight: 600;
             margin-bottom: 20px;
             text-align: center;
         }
-
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        ul li {
-            font-size: 18px;
-            margin: 10px;
-            padding: 15px 20px;
-            background: #f7f8fa;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Migros Kasa Kodları</h1>
+        <h1>Kasa UPC Kodları</h1>
         <div class="search-box">
             <input 
                 type="text" 
@@ -162,7 +144,9 @@
         </ul>
         <div class="favorites">
             <h2>Favorilere Eklenenler</h2>
-            <ul id="favoritesList"></ul>
+            <ul class="favorites-list" id="favoritesList">
+                <!-- Favoriler buraya eklenecek -->
+            </ul>
         </div>
     </div>
 
@@ -175,8 +159,7 @@
         function loadFavorites() {
             favoritesList.innerHTML = '';
             storedFavorites.forEach(item => {
-                const li = document.createElement('li');
-                li.textContent = item;
+                const li = createFavoriteItem(item.name, item.code);
                 favoritesList.appendChild(li);
             });
         }
@@ -189,27 +172,59 @@
                     const items = data.split('\n').filter(line => line.trim() !== '');
                     items.forEach(item => {
                         const [name, code] = item.split(' - ');
-                        const li = document.createElement('li');
-                        li.innerHTML = `
-                            <div class="product-info">
-                                <span class="product-name">${name}</span>
-                                <span class="product-code">Kasa Kodu: ${code}</span>
-                            </div>
-                            <div class="icons">
-                                <span class="icon" onclick="addToFavorites('${name}')">⭐</span>
-                                <span class="icon" onclick="copyToClipboard('${code}')">📋</span>
-                            </div>
-                        `;
+                        const li = createProductItem(name, code);
                         fruitList.appendChild(li);
                     });
                 })
                 .catch(error => console.error('Ürünler yüklenirken bir hata oluştu:', error));
         }
 
+        // Ürün liste elemanı oluştur
+        function createProductItem(name, code) {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <div class="product-info">
+                    <span class="product-name">${name}</span>
+                    <span class="product-code">Kasa Kodu: ${code}</span>
+                </div>
+                <div class="icons">
+                    <span class="icon" onclick="addToFavorites('${name}', '${code}')">⭐</span>
+                    <span class="icon" onclick="copyToClipboard('${code}')">📋</span>
+                </div>
+            `;
+            return li;
+        }
+
+        // Favori liste elemanı oluştur
+        function createFavoriteItem(name, code) {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <div class="product-info">
+                    <span class="product-name">${name}</span>
+                    <span class="product-code">Kasa Kodu: ${code}</span>
+                </div>
+                <div class="icons">
+                    <span class="icon" onclick="removeFromFavorites('${name}', '${code}')">❌</span>
+                    <span class="icon" onclick="copyToClipboard('${code}')">📋</span>
+                </div>
+            `;
+            return li;
+        }
+
         // Favorilere ekle
-        function addToFavorites(productName) {
-            if (!storedFavorites.includes(productName)) {
-                storedFavorites.push(productName);
+        function addToFavorites(name, code) {
+            if (!storedFavorites.some(item => item.name === name)) {
+                storedFavorites.push({ name, code });
+                localStorage.setItem('favorites', JSON.stringify(storedFavorites));
+                loadFavorites();
+            }
+        }
+
+        // Favorilerden çıkar
+        function removeFromFavorites(name, code) {
+            const index = storedFavorites.findIndex(item => item.name === name && item.code === code);
+            if (index !== -1) {
+                storedFavorites.splice(index, 1);
                 localStorage.setItem('favorites', JSON.stringify(storedFavorites));
                 loadFavorites();
             }
