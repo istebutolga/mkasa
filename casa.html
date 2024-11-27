@@ -118,6 +118,28 @@
             margin-bottom: 20px;
         }
 
+        .search-box {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+            .search-box input {
+                width: 100%;
+                max-width: 800px;
+                padding: 15px 20px;
+                font-size: 18px;
+                border: 1px solid #ddd;
+                border-radius: 50px;
+                outline: none;
+                background-color: var(--container-bg);
+                color: var(--text-color);
+            }
+
+                .search-box input::placeholder {
+                    color: var(--text-color);
+                    opacity: 0.7;
+                }
+
         .list, .favorites-list {
             list-style: none;
             padding: 0;
@@ -143,10 +165,6 @@
                 .list li:hover, .favorites-list li:hover {
                     box-shadow: 0 6px 12px var(--card-shadow);
                 }
-
-        .product-info {
-            max-width: 70%;
-        }
 
         .icons .icon {
             color: var(--icon-color);
@@ -180,7 +198,7 @@
             <img src="https://seeklogo.com/images/M/Migros-logo-8E7D2406C3-seeklogo.com.png" alt="Site Logosu">
         </a>
         <div class="dark-mode-toggle">
-            <img src="https://via.placeholder.com/30x30?text=🌙" alt="Koyu Mod İkonu">
+            <img src="https://osxinfo.net/eklentiler/512-png.11233/" alt="Koyu Mod İkonu">
             <label class="toggle-switch">
                 <input type="checkbox" id="darkModeSwitch">
                 <span class="slider"></span>
@@ -188,6 +206,12 @@
         </div>
     </header>
     <div class="container">
+        <div class="search-box">
+            <input type="text"
+                   id="searchInput"
+                   placeholder="Ürün arayın..."
+                   onkeyup="filterList()" />
+        </div>
         <ul class="list" id="fruitList">
             <!-- Ürünler buraya yüklenecek -->
         </ul>
@@ -207,6 +231,7 @@
         const darkModeSwitch = document.getElementById('darkModeSwitch');
         const fruitList = document.getElementById('fruitList');
         const favoritesList = document.getElementById('favoritesList');
+        const searchInput = document.getElementById('searchInput');
         const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
         // Koyu mod durumunu localStorage'dan kontrol et
@@ -226,14 +251,17 @@
             }
         });
 
-        // Ürünleri harici dosyadan yükle
+        // Ürünleri harici dosyadan yükle ve alfabetik sıraya diz
         function loadProducts() {
             fetch('urunler.txt')
                 .then(response => response.text())
                 .then(data => {
-                    const items = data.split('\n').filter(line => line.trim() !== '');
-                    items.forEach(item => {
-                        const [name, code] = item.split(' - ');
+                    const items = data.split('\n')
+                        .filter(line => line.trim() !== '')
+                        .map(line => line.split(' - '))
+                        .sort((a, b) => a[0].localeCompare(b[0], 'tr'));
+
+                    items.forEach(([name, code]) => {
                         const li = document.createElement('li');
                         li.innerHTML = `
                                 <div>
@@ -285,6 +313,15 @@
                 localStorage.setItem('favorites', JSON.stringify(storedFavorites));
                 loadFavorites();
             }
+        }
+
+        // Listeyi filtrele
+        function filterList() {
+            const filter = searchInput.value.toLowerCase();
+            Array.from(fruitList.children).forEach(li => {
+                const text = li.textContent.toLowerCase();
+                li.style.display = text.includes(filter) ? '' : 'none';
+            });
         }
 
         // Sayfa yüklendiğinde çalıştır
