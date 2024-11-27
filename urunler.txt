@@ -12,13 +12,20 @@ Pizza MiGo Karışık - 8055
 Pizza MiGo Peynirli - 8056
 Pizza MiGo Jambonlu - 8057
 Muz Yerli - 470
-Çilek - 12
-Hıyar Paket
+Çilek KG. - 12
+Hıyar Badem Paket KG. - 1033
 Yaban Mersini 125G - 3109
 Domates - 114
-Hıyar - 119
+Salkım Domates - 514
+Hıyar KG. - 119
 Kırmızı Biber KG. - 111
 Sivri Biber KG. - 112
+Biber Dolma KG. - 110
+Kara Lahana KG. - 129
+Pırasa Sap (Adet) - 1355
+Soğan Taze Demet - 158
+Patates Kırmızı Kızartmalık KG. - 4374
+Hindistan Cevizi (Adet) - 11
 Çarliston Biber KG. - 109
 Ayşe Kadın Fasulye KG. - 101
 Patlıcan Kemer - 127
@@ -49,5 +56,8 @@ BADEM KAVRULMUŞ - 9701
 SOĞAN KURU DÖKME KG. - 196
 KOMŞU İĞDE PAKET - 5596
 TATLI İTHAL PATATES - 1113
-LİMON KG. - 81
-GREYFURT KG. - 84
+Limon KG. - 81
+GREYFURT KAN KG. - 84
+Migros Poşet - 5318
+5M Migors Poşet - 5319
+Sofra Ekmek - 10099
