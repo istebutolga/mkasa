@@ -15,33 +15,36 @@
             font-family: 'Roboto', sans-serif;
             color: #333;
             padding: 20px;
+            overflow-y: auto;
         }
 
         .container {
             width: 100%;
-            max-width: 800px;
+            max-width: 1200px;
             background: #fff;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             padding: 30px;
-            text-align: center;
         }
 
         h1 {
-            font-size: 36px;
+            font-size: 40px;
             font-weight: 700;
             margin-bottom: 30px;
             color: #202124;
+            text-align: center;
         }
 
         .search-box {
             width: 100%;
             margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
         }
 
         .search-box input {
             width: 100%;
-            max-width: 600px;
+            max-width: 800px;
             padding: 15px 20px;
             font-size: 18px;
             border: 1px solid #ddd;
@@ -69,20 +72,25 @@
 
         .list li {
             font-size: 18px;
-            padding: 15px 20px;
+            padding: 20px 30px;
             margin: 10px;
             background: #ffffff;
             border-radius: 12px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
             display: flex;
-            flex-direction: column;
-            align-items: flex-start;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .list li:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-info {
+            display: flex;
+            flex-direction: column;
         }
 
         .product-name {
@@ -94,39 +102,53 @@
         .product-code {
             font-size: 16px;
             color: #555;
-            display: flex;
-            align-items: center;
         }
 
-        .copy-icon {
-            margin-left: 10px;
+        .icons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .icon {
             cursor: pointer;
-            color: #4285f4;
+            font-size: 24px;
+            color: #aaa;
             transition: color 0.3s ease;
         }
 
-        .copy-icon:hover {
-            color: #0b73f2;
+        .icon:hover {
+            color: #4285f4;
         }
 
-        /* Scrollbar styling */
-        .list::-webkit-scrollbar {
-            width: 8px;
+        .favorites {
+            margin-top: 40px;
         }
 
-        .list::-webkit-scrollbar-thumb {
-            background: #ddd;
-            border-radius: 4px;
+        h2 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
         }
 
-        .list::-webkit-scrollbar-thumb:hover {
-            background: #bbb;
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            font-size: 18px;
+            margin: 10px;
+            padding: 15px 20px;
+            background: #f7f8fa;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>M Kasa Kodları</h1>
+        <h1>Migros Kasa Kodları</h1>
         <div class="search-box">
             <input 
                 type="text" 
@@ -138,49 +160,82 @@
         <ul class="list" id="fruitList">
             <!-- Ürünler buraya yüklenecek -->
         </ul>
+        <div class="favorites">
+            <h2>Favorilere Eklenenler</h2>
+            <ul id="favoritesList"></ul>
+        </div>
     </div>
 
     <script>
         const fruitList = document.getElementById('fruitList');
+        const favoritesList = document.getElementById('favoritesList');
+        const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
-        // Ürünleri fetch ile urunler.txt'den çek ve listeyi oluştur
-        fetch('urunler.txt')
-            .then(response => response.text())
-            .then(data => {
-                const items = data.split('\n').filter(line => line.trim() !== '');
-                const sortedItems = items.sort((a, b) => a.localeCompare(b, 'tr'));
-
-                sortedItems.forEach(item => {
-                    const [name, code] = item.split(' - ');
-                    const li = document.createElement('li');
-
-                    li.innerHTML = `
-                        <span class="product-name">${name}</span>
-                        <span class="product-code">
-                            Kasa Kodu: ${code}
-                            <span class="copy-icon" onclick="copyToClipboard('${code}')">📋</span>
-                        </span>
-                    `;
-                    fruitList.appendChild(li);
-                });
-            })
-            .catch(error => console.error('Ürünler yüklenirken bir hata oluştu:', error));
-
-        // Listeyi filtrelemek için kullanılan fonksiyon
-        function filterList() {
-            const input = document.getElementById('searchInput').value.toLowerCase();
-            Array.from(fruitList.children).forEach(item => {
-                const text = item.textContent.toLowerCase();
-                item.style.display = text.includes(input) ? "" : "none";
+        // Favorileri yükle
+        function loadFavorites() {
+            favoritesList.innerHTML = '';
+            storedFavorites.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                favoritesList.appendChild(li);
             });
         }
 
-        // Kopyalama işlevi
+        // Ürünleri yükle (urunler.txt'den çek)
+        function loadProducts() {
+            fetch('urunler.txt')
+                .then(response => response.text())
+                .then(data => {
+                    const items = data.split('\n').filter(line => line.trim() !== '');
+                    items.forEach(item => {
+                        const [name, code] = item.split(' - ');
+                        const li = document.createElement('li');
+                        li.innerHTML = `
+                            <div class="product-info">
+                                <span class="product-name">${name}</span>
+                                <span class="product-code">Kasa Kodu: ${code}</span>
+                            </div>
+                            <div class="icons">
+                                <span class="icon" onclick="addToFavorites('${name}')">⭐</span>
+                                <span class="icon" onclick="copyToClipboard('${code}')">📋</span>
+                            </div>
+                        `;
+                        fruitList.appendChild(li);
+                    });
+                })
+                .catch(error => console.error('Ürünler yüklenirken bir hata oluştu:', error));
+        }
+
+        // Favorilere ekle
+        function addToFavorites(productName) {
+            if (!storedFavorites.includes(productName)) {
+                storedFavorites.push(productName);
+                localStorage.setItem('favorites', JSON.stringify(storedFavorites));
+                loadFavorites();
+            }
+        }
+
+        // Kopyalama işlemi
         function copyToClipboard(text) {
             navigator.clipboard.writeText(text).then(() => {
                 alert(`"${text}" başarıyla kopyalandı!`);
             });
         }
+
+        // Listeyi filtrele
+        function filterList() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            Array.from(fruitList.children).forEach(item => {
+                const text = item.textContent.toLowerCase();
+                item.style.display = text.includes(input) ? '' : 'none';
+            });
+        }
+
+        // Sayfa yüklendiğinde çalıştır
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProducts();
+            loadFavorites();
+        });
     </script>
 </body>
 </html>
