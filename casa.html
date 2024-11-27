@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meyve ve Sebze Kodları</title>
+    <title>Migros Kasa Kodları</title>
     <style>
         body {
             display: flex;
@@ -32,15 +32,11 @@
             font-weight: 700;
             margin-bottom: 30px;
             color: #202124;
-            letter-spacing: 1px;
         }
 
         .search-box {
             width: 100%;
             margin-bottom: 30px;
-            display: flex;
-            justify-content: center;
-            position: relative;
         }
 
         .search-box input {
@@ -72,60 +68,44 @@
         }
 
         .list li {
-            font-size: 20px;
-            font-weight: 500;
-            padding: 15px;
-            margin: 5px 10px;
-            border-radius: 8px;
+            font-size: 18px;
+            padding: 15px 20px;
+            margin: 10px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
             display: flex;
-            align-items: center;
-            transition: all 0.2s ease;
-            cursor: pointer;
+            flex-direction: column;
+            align-items: flex-start;
         }
 
         .list li:hover {
-            background: #e3f2fd;
-            color: #0b73f2;
             transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
         }
 
-        .list li:nth-child(even) {
-            background: #f9f9f9;
+        .product-name {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 5px;
         }
 
-        .recent-searches {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 2px solid #ddd;
-            text-align: center;
-        }
-
-        .recent-searches h2 {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-
-        .recent-searches ul {
-            list-style: none;
-            padding: 0;
-            margin: 0 auto;
-            max-width: 600px;
-        }
-
-        .recent-searches ul li {
-            font-size: 18px;
-            margin: 5px 0;
+        .product-code {
+            font-size: 16px;
             color: #555;
-            padding: 10px;
-            border-radius: 8px;
-            background: #f1f3f4;
-            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
         }
 
-        .recent-searches ul li:hover {
-            background: #dce4ed;
+        .copy-icon {
+            margin-left: 10px;
+            cursor: pointer;
+            color: #4285f4;
+            transition: color 0.3s ease;
+        }
+
+        .copy-icon:hover {
             color: #0b73f2;
         }
 
@@ -146,7 +126,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Meyve ve Sebze Kodları</h1>
+        <h1>Meyve ve Sebze ve Diğer Kodlar</h1>
         <div class="search-box">
             <input 
                 type="text" 
@@ -156,112 +136,51 @@
             />
         </div>
         <ul class="list" id="fruitList">
-<li>Elma Starking - 28</li>
-            <li>Armut Santa Maria - 4</li>
-            <li>Muz Yerli - 470</li>
-            <li>Çilek - 12</li>
-            <li>Domates - 114</li>
-            <li>Hıyar - 119</li>
-            <li>Kırmızı Biber - 111</li>
-            <li>Patlıcan Kemer - 127</li>
-            <li>Havuç Beypazarı - 2957</li>
-            <li>Mandalina - 1206</li>
-            <li>Yumurtacım 15li Koli Yumurta - 8697581700010</li>
-            <li>Çikolata Parçalı Kruvasan 65G - 5680</li>
-            <li>Kruvasan 55G TR. - 5398</li>
-            <li>Kivi & Kiwi - 142</li>
-            <li>Mandalina Satsuma - 48</li>
-            <li>Yerli Pomelo - 2112</li>
-            <li>Kereviz KG. - 124</li>
-            <li>İthal Muz - 47</li>
-            <li>Yedigün 1.5L - 8690574114764</li>
-            <li>Yedigün 1L - 8690574115075</li>
-            <li>Balkan Çöreği 85G TR. - 5400</li>
-            <li>Üzümlü Çörek 80G TR. - 5399</li>
-            <li>Baget Ekmek Kepekli 75G TR. - 3768</li>
-            <li>Baget Ekmek Sade Uzun 255G TR. - 3708</li>
-            <li>Baget Ekmek Sade 75G TR. - 3767</li>
-            <li>KAŞARLI POĞAÇA ADT.73 G (LLT) - 3064</li>
-            <li>DEREOTLU POĞAÇA ADT.73 G (LLT) - 3065</li>
-            <li>PATATES KG. - 2422</li>
-            <li>ELMA GOLDEN KG. - 309</li>
-            <li>ELMA GRANNY KG. - 337</li>
-            <li>BADEM KAVRULMUŞ - 9701</li>
-            <li>SOĞAN KURU DÖKME KG. - 196</li>
-            <li>KOMŞU İĞDE PAKET - 5596</li>
-            <li>TATLI İTHAL PATATES - 1113</li>
-            <li>LİMON KG. - 81</li>
-            <li>GREYFURT KG. - 84</li>
-            <li>
-            
+            <!-- Ürünler buraya yüklenecek -->
         </ul>
-        <div class="recent-searches">
-            <h2>Son Arananlar</h2>
-            <ul id="recentSearchList">
-                <!-- Son arananlar burada görünecek -->
-            </ul>
-        </div>
     </div>
 
     <script>
-        const recentSearchList = document.getElementById('recentSearchList');
-        const fruitListContainer = document.getElementById('fruitList');
-        const fruitListItems = Array.from(fruitListContainer.getElementsByTagName('li'));
-        const turkishMap = {
-            'i': 'ı',
-            'ı': 'i',
-            'o': 'ö',
-            'ö': 'o',
-            'u': 'ü',
-            'ü': 'u',
-            'ç': 'c',
-            'c': 'ç',
-            'ş': 's',
-            's': 'ş',
-            'ğ': 'g',
-            'g': 'ğ'
-        };
+        const fruitList = document.getElementById('fruitList');
 
-        // Türkçe harfleri normalize eden fonksiyon
-        function normalizeTurkish(str) {
-            return str.toLowerCase().replace(/[ıçöüğş]/g, (char) => turkishMap[char] || char);
-        }
+        // Ürünleri fetch ile urunler.txt'den çek ve listeyi oluştur
+        fetch('urunler.txt')
+            .then(response => response.text())
+            .then(data => {
+                const items = data.split('\n').filter(line => line.trim() !== '');
+                const sortedItems = items.sort((a, b) => a.localeCompare(b, 'tr'));
 
-        // Listeyi alfabetik sıraya göre yeniden düzenler
-        function sortListAlphabetically() {
-            fruitListItems.sort((a, b) => {
-                const textA = normalizeTurkish(a.textContent || a.innerText);
-                const textB = normalizeTurkish(b.textContent || b.innerText);
-                return textA.localeCompare(textB);
-            });
-            fruitListItems.forEach(item => fruitListContainer.appendChild(item));
-        }
+                sortedItems.forEach(item => {
+                    const [name, code] = item.split(' - ');
+                    const li = document.createElement('li');
+
+                    li.innerHTML = `
+                        <span class="product-name">${name}</span>
+                        <span class="product-code">
+                            Kasa Kodu: ${code}
+                            <span class="copy-icon" onclick="copyToClipboard('${code}')">📋</span>
+                        </span>
+                    `;
+                    fruitList.appendChild(li);
+                });
+            })
+            .catch(error => console.error('Ürünler yüklenirken bir hata oluştu:', error));
 
         // Listeyi filtrelemek için kullanılan fonksiyon
         function filterList() {
-            const input = normalizeTurkish(document.getElementById('searchInput').value);
-            for (const item of fruitListItems) {
-                const text = normalizeTurkish(item.textContent || item.innerText);
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            Array.from(fruitList.children).forEach(item => {
+                const text = item.textContent.toLowerCase();
                 item.style.display = text.includes(input) ? "" : "none";
-            }
-            if (input.trim()) updateRecentSearches(input);
+            });
         }
 
-        // Son arananlar listesini güncelleyen fonksiyon
-        function updateRecentSearches(searchTerm) {
-            if ([...recentSearchList.children].some(item => item.textContent === searchTerm)) return;
-
-            const li = document.createElement('li');
-            li.textContent = searchTerm;
-            recentSearchList.prepend(li);
-
-            if (recentSearchList.children.length > 5) {
-                recentSearchList.removeChild(recentSearchList.lastChild);
-            }
+        // Kopyalama işlevi
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert(`"${text}" başarıyla kopyalandı!`);
+            });
         }
-
-        // Sayfa yüklendiğinde listeyi sıralar
-        document.addEventListener('DOMContentLoaded', sortListAlphabetically);
     </script>
 </body>
 </html>
