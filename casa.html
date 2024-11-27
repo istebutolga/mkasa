@@ -1,36 +1,74 @@
-
 <!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Büyük ve Ortada</title>
+    <title>Meyve ve Sebze Kodları</title>
     <style>
         body {
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column; /* Dikey olarak hizalar */
             height: 100vh;
             margin: 0;
-            background-color: #f0f0f0;
+            background-color: #f9f9f9;
+            font-family: Arial, sans-serif;
         }
 
-        .center-box {
-            font-size: 50px; /* Yazının boyutunu büyütür */
-            font-weight: bold; /* Kalın yapar */
-            text-align: center;
+        h1 {
+            font-size: 36px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .list-container {
+            max-width: 600px;
+            width: 90%;
+            background-color: #fff;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow-y: auto; /* Liste uzunsa kaydırma ekler */
+            max-height: 70vh; /* Çok uzun listelerde taşmayı engeller */
             padding: 20px;
-            border: 2px solid #333; /* Çerçeve ekler */
-            background-color: #ffffff;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Hafif gölge ekler */
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 18px;
+            color: #555;
+        }
+
+        li:last-child {
+            border-bottom: none; /* Son elemanda çizgi kaldırılır */
         }
     </style>
 </head>
 <body>
-    <div class="center-box">
-        Mandalina - 1206
-Portakal - 1196
-Portakal Sıkma File - 2700
+    <h1>Meyve ve Sebze Kodları</h1>
+    <div class="list-container">
+        <ul>
+            <li>Elma Starking - 28</li>
+            <li>Armut Santa Maria - 4</li>
+            <li>Muz Yerli - 470</li>
+            <li>Çilek - 12</li>
+            <li>Domates - 114</li>
+            <li>Hıyar - 119</li>
+            <li>Kırmızı Biber - 111</li>
+            <li>Patlıcan Kemer - 127</li>
+            <li>Havuç Beypazarı - 2957</li>
+            <li>Mandalina - 1206</li>
+            <!-- Listeyi dilediğiniz kadar uzatabilirsiniz -->
+        </ul>
     </div>
 </body>
 </html>
