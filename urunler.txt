@@ -11,6 +11,8 @@ Nar - 53
 Pizza MiGo Karışık - 8055
 Pizza MiGo Peynirli - 8056
 Pizza MiGo Jambonlu - 8057
+Tam Buğdaylı Unlu Ekmek - 9035
+Pizza Çörek - 9036
 Muz Yerli - 470
 Çilek KG. - 12
 Hıyar Badem Paket KG. - 1033
