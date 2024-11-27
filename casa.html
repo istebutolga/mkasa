@@ -8,13 +8,13 @@
         body {
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* Sayfa içeriğini en üste hizalar */
+            align-items: flex-start; /* En üste hizalama */
             height: 100vh;
             margin: 0;
             background: linear-gradient(135deg, #a8edea, #fed6e3);
             font-family: 'Poppins', sans-serif;
             color: #333;
-            padding-top: 20px; /* Üstte biraz boşluk bırakır */
+            padding-top: 20px;
         }
 
         .container {
@@ -63,7 +63,8 @@
         }
 
         .list li {
-            font-size: 18px;
+            font-size: 20px; /* Yazı boyutu büyütüldü */
+            font-weight: bold; /* Kalın yazı */
             padding: 15px;
             margin: 10px 0;
             background: #f7f7f7;
@@ -81,15 +82,29 @@
             background: #eef9f9;
         }
 
-        /* Mobil uyumluluk */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 24px;
-            }
+        .recent-searches {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #ddd;
+            text-align: left;
+        }
 
-            .list li {
-                font-size: 16px;
-            }
+        .recent-searches h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .recent-searches ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .recent-searches ul li {
+            font-size: 18px;
+            margin: 5px 0;
+            color: #555;
         }
     </style>
 </head>
@@ -105,7 +120,7 @@
             />
         </div>
         <ul class="list" id="fruitList">
-             <li>Elma Starking - 28</li>
+                <li>Elma Starking - 28</li>
             <li>Armut Santa Maria - 4</li>
             <li>Muz Yerli - 470</li>
             <li>Çilek - 12</li>
@@ -116,14 +131,27 @@
             <li>Havuç Beypazarı - 2957</li>
             <li>Mandalina - 1206</li>
         </ul>
+        <div class="recent-searches">
+            <h2>Son Arananlar</h2>
+            <ul id="recentSearchList">
+                <!-- Son arananlar burada görünecek -->
+            </ul>
+        </div>
     </div>
 
     <script>
+        const recentSearchList = document.getElementById('recentSearchList');
+        const maxRecentSearches = 5; // Son arananlar listesindeki maksimum öğe sayısı
+
         function filterList() {
             const input = document.getElementById('searchInput');
             const filter = input.value.toLowerCase();
             const ul = document.getElementById('fruitList');
             const li = ul.getElementsByTagName('li');
+
+            if (filter.trim() !== "") {
+                updateRecentSearches(filter); // Son arananları güncelle
+            }
 
             for (let i = 0; i < li.length; i++) {
                 const text = li[i].textContent || li[i].innerText;
@@ -132,6 +160,26 @@
                 } else {
                     li[i].style.display = "none";
                 }
+            }
+        }
+
+        function updateRecentSearches(searchTerm) {
+            // Eğer arama terimi daha önce eklenmişse, eskiyi kaldır
+            const existingItem = Array.from(recentSearchList.children).find(
+                (item) => item.textContent.toLowerCase() === searchTerm.toLowerCase()
+            );
+            if (existingItem) {
+                recentSearchList.removeChild(existingItem);
+            }
+
+            // Yeni arama terimini listeye ekle
+            const newItem = document.createElement('li');
+            newItem.textContent = searchTerm;
+            recentSearchList.insertBefore(newItem, recentSearchList.firstChild);
+
+            // Maksimum öğe sayısını aşarsa, eskiyi sil
+            if (recentSearchList.children.length > maxRecentSearches) {
+                recentSearchList.removeChild(recentSearchList.lastChild);
             }
         }
     </script>
