@@ -1,6 +1,5 @@
 # forum
+#C++
+#HTML5
 
-DuckGoGPT 
-
-link: https://istebutolga.github.io/forum/index.html
 - By Tolga Öztürk
