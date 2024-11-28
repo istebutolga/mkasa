@@ -13,7 +13,7 @@
             --card-bg: #ffffff;
             --card-shadow: rgba(0, 0, 0, 0.1);
             --icon-color: #aaa;
-            --icon-hover: #4285f4;
+            --icon-hover: #ff6600;
             --switch-bg: #ddd;
         }
 
@@ -24,7 +24,7 @@
             --card-bg: #333333;
             --card-shadow: rgba(0, 0, 0, 0.5);
             --icon-color: #777;
-            --icon-hover: #00acee;
+            --icon-hover: #ff6600;
             --switch-bg: #444;
         }
 
@@ -37,6 +37,12 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         header {
@@ -46,6 +52,8 @@
             width: 100%;
             max-width: 1200px;
             margin-bottom: 20px;
+            border-bottom: 2px solid var(--icon-hover);
+            padding-bottom: 10px;
         }
 
         header img {
@@ -117,6 +125,11 @@
             max-width: 1200px;
             padding: 30px;
             margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: scale(1.02);
         }
 
         .search-box {
@@ -134,6 +147,12 @@
             outline: none;
             background-color: var(--container-bg);
             color: var(--text-color);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .search-box input:focus {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
         }
 
         .search-box input::placeholder {
@@ -161,6 +180,7 @@
             justify-content: space-between;
             align-items: center;
             color: var(--text-color);
+            transition: box-shadow 0.3s ease;
         }
 
         .list li:hover, .favorites-list li:hover {
@@ -171,7 +191,7 @@
             color: var(--icon-color);
             font-size: 24px;
             cursor: pointer;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease, transform 0.3s ease;
         }
 
         .icons .icon:hover {
@@ -183,6 +203,8 @@
             margin-top: 20px;
             color: var(--text-color);
             text-align: center;
+            border-top: 2px solid var(--icon-hover);
+            padding-top: 10px;
         }
 
         footer a {
