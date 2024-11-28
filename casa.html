@@ -196,12 +196,25 @@
             align-items: center;
             color: var(--text-color);
             transition: box-shadow 0.3s ease;
-            flex-direction: column;
-            align-items: flex-start;
         }
 
         .list li:hover, .favorites-list li:hover {
             box-shadow: 0 6px 12px var(--card-shadow);
+        }
+
+        .item-image {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            background-color: #f0f0f0;
+            margin-right: 10px;
+        }
+
+        .item-info {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
         }
 
         .item-name {
@@ -361,11 +374,16 @@
                         .sort((a, b) => a[0].localeCompare(b[0], 'tr'));
 
                     fruitList.innerHTML = ''; // Eski listeyi temizleyelim
-                    items.forEach(([name, code]) => {
+                    items.forEach(([name, code, imageUrl]) => {
                         const li = document.createElement('li');
                         li.innerHTML = `
-                            <div class="item-name">${name}</div>
-                            <div class="item-code">Kasa Kodu: ${code}</div>
+                            <div class="item-info">
+                                ${imageUrl ? `<img src="${imageUrl}" alt="${name}" class="item-image">` : '<span class="item-image">Bu görsel henüz yüklenmemiş!</span>'}
+                                <div>
+                                    <div class="item-name">${name}</div>
+                                    <div class="item-code">Kasa Kodu: ${code}</div>
+                                </div>
+                            </div>
                             <div class="icons">
                                 <span class="icon" role="button" aria-label="Favorilere ekle" onclick="addToFavorites('${name}', '${code}')">⭐</span>
                             </div>
@@ -395,8 +413,10 @@
                 if (item.name && item.code) {
                     const li = document.createElement('li');
                     li.innerHTML = `
-                        <div class="item-name">${item.name}</div>
-                        <div class="item-code">Kasa Kodu: ${item.code}</div>
+                        <div class="item-info">
+                            <div class="item-name">${item.name}</div>
+                            <div class="item-code">Kasa Kodu: ${item.code}</div>
+                        </div>
                         <div class="icons">
                             <span class="icon" role="button" aria-label="Favorilerden çıkar" onclick="removeFromFavorites('${item.name}', '${item.code}')">❌</span>
                         </div>
