@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Migros Yazar Kasa Kodları</title>
+    <link href="https://fonts.googleapis.com/css2?family=Soopafresh&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #f7f8fa;
@@ -291,6 +292,15 @@
         .cookie-banner button:hover {
             background: #e65c00;
         }
+
+        .no-result {
+            font-family: 'Soopafresh', cursive;
+            font-size: 1.5em;
+            color: var(--icon-hover);
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -317,6 +327,9 @@
         <ul class="list" id="fruitList">
             <!-- Ürünler buraya yüklenecek -->
         </ul>
+        <div id="noResultMessage" class="no-result" style="display: none;">
+            İsteğiniz ürün adını yanlış girmiş veya listeye eklenmemiş olabilirsin ürün eklemesi yapmak için istebutolga@gmail.com maili üzerinden iletişime geçiniz
+        </div>
     </div>
     <div class="container">
         <h2>Favorilere Eklenenler</h2>
@@ -339,6 +352,7 @@
         const fruitList = document.getElementById('fruitList');
         const favoritesList = document.getElementById('favoritesList');
         const searchInput = document.getElementById('searchInput');
+        const noResultMessage = document.getElementById('noResultMessage');
         const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
         // Koyu mod durumunu localStorage'dan kontrol et
@@ -448,10 +462,18 @@
         // Listeyi filtrele
         function filterList() {
             const filter = searchInput.value.toLowerCase();
+            let found = false;
             Array.from(fruitList.children).forEach(li => {
                 const text = li.textContent.toLowerCase();
-                li.style.display = text.includes(filter) ? '' : 'none';
+                if (text.includes(filter)) {
+                    li.style.display = '';
+                    found = true;
+                } else {
+                    li.style.display = 'none';
+                }
             });
+
+            noResultMessage.style.display = found ? 'none' : 'block';
         }
 
         // Çerez kabul etme
