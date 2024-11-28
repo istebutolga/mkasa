@@ -135,12 +135,13 @@
         .search-box {
             width: 100%;
             margin-bottom: 20px;
+            position: relative;
         }
 
         .search-box input {
             width: 100%;
             max-width: 800px;
-            padding: 15px 20px;
+            padding: 15px 20px 15px 50px;
             font-size: 18px;
             border: 1px solid #ddd;
             border-radius: 50px;
@@ -148,16 +149,30 @@
             background-color: var(--container-bg);
             color: var(--text-color);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: box-shadow 0.3s ease;
+            transition: box-shadow 0.3s ease, width 0.3s ease;
         }
 
         .search-box input:focus {
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            width: 100%;
         }
 
         .search-box input::placeholder {
             color: var(--text-color);
             opacity: 0.7;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            color: var(--icon-color);
+        }
+
+        .search-box input:focus + .search-icon {
+            color: var(--icon-hover);
         }
 
         .list, .favorites-list {
@@ -254,6 +269,7 @@
                    id="searchInput"
                    placeholder="Ürün arayın..."
                    onkeyup="filterList()" />
+            <span class="search-icon">🔍</span>
         </div>
         <ul class="list" id="fruitList">
             <!-- Ürünler buraya yüklenecek -->
