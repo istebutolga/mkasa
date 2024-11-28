@@ -241,7 +241,9 @@
         }
 
         .icons {
-            align-self: flex-end;
+            display: flex;
+            gap: 10px;
+            align-items: center;
         }
 
         .icons .icon {
@@ -254,6 +256,20 @@
         .icons .icon:hover {
             color: var(--icon-hover);
             transform: scale(1.1);
+        }
+
+        .stock-check-button {
+            padding: 5px 10px;
+            background-color: var(--icon-hover);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .stock-check-button:hover {
+            background-color: #e65c00;
         }
 
         footer {
@@ -410,6 +426,7 @@
                         </div>
                         <div class="icons">
                             <span class="icon" role="button" aria-label="Favorilere ekle" onclick="addToFavorites('${name}', '${code}')">⭐</span>
+                            <button class="stock-check-button" onclick="checkStock('${name}')">Stok Kontrol</button>
                         </div>
                     `;
                     fruitList.appendChild(li);
@@ -444,6 +461,7 @@
                         </div>
                         <div class="icons">
                             <span class="icon" role="button" aria-label="Favorilerden çıkar" onclick="removeFromFavorites('${item.name}', '${item.code}')">❌</span>
+                            <button class="stock-check-button" onclick="checkStock('${item.name}')">Stok Kontrol</button>
                         </div>
                     `;
                     favoritesList.appendChild(li);
@@ -518,6 +536,12 @@
             };
 
             recognition.start();
+        }
+
+        // Stok kontrol
+        function checkStock(productName) {
+            const url = `https://www.migros.com.tr/arama?q=${encodeURIComponent(productName)}`;
+            window.open(url, '_blank');
         }
 
         // Çerez kabul etme
