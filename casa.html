@@ -375,10 +375,11 @@
 
                     fruitList.innerHTML = ''; // Eski listeyi temizleyelim
                     items.forEach(([name, code, imageUrl]) => {
+                        const imageSrc = imageUrl ? imageUrl : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShIbHkyLtofVVgvXvi9RCFbbtegkcKeXCU8uBDuncOBh0jpu9s41sdYmM&s=10';
                         const li = document.createElement('li');
                         li.innerHTML = `
                             <div class="item-info">
-                                ${imageUrl ? `<img src="${imageUrl}" alt="${name}" class="item-image">` : '<span class="item-image">Bu görsel henüz yüklenmemiş!</span>'}
+                                <img src="${imageSrc}" alt="${name}" class="item-image">
                                 <div>
                                     <div class="item-name">${name}</div>
                                     <div class="item-code">Kasa Kodu: ${code}</div>
