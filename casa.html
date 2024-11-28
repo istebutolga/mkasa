@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
@@ -47,9 +48,9 @@
             margin-bottom: 20px;
         }
 
-            header img {
-                max-height: 60px;
-            }
+        header img {
+            max-height: 60px;
+        }
 
         .dark-mode-toggle {
             display: flex;
@@ -58,10 +59,10 @@
             gap: 10px;
         }
 
-            .dark-mode-toggle img {
-                width: 30px;
-                height: 30px;
-            }
+        .dark-mode-toggle img {
+            width: 30px;
+            height: 30px;
+        }
 
         .toggle-switch {
             position: relative;
@@ -70,11 +71,11 @@
             height: 25px;
         }
 
-            .toggle-switch input {
-                opacity: 0;
-                width: 0;
-                height: 0;
-            }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
 
         .slider {
             position: absolute;
@@ -88,25 +89,25 @@
             transition: 0.4s;
         }
 
-            .slider:before {
-                position: absolute;
-                content: "";
-                height: 19px;
-                width: 19px;
-                left: 3px;
-                bottom: 3px;
-                background-color: #fff;
-                border-radius: 50%;
-                transition: 0.4s;
-            }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 19px;
+            width: 19px;
+            left: 3px;
+            bottom: 3px;
+            background-color: #fff;
+            border-radius: 50%;
+            transition: 0.4s;
+        }
 
         input:checked + .slider {
             background-color: var(--icon-hover);
         }
 
-            input:checked + .slider:before {
-                transform: translateX(24px);
-            }
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
 
         .container {
             background-color: var(--container-bg);
@@ -123,22 +124,22 @@
             margin-bottom: 20px;
         }
 
-            .search-box input {
-                width: 100%;
-                max-width: 800px;
-                padding: 15px 20px;
-                font-size: 18px;
-                border: 1px solid #ddd;
-                border-radius: 50px;
-                outline: none;
-                background-color: var(--container-bg);
-                color: var(--text-color);
-            }
+        .search-box input {
+            width: 100%;
+            max-width: 800px;
+            padding: 15px 20px;
+            font-size: 18px;
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            outline: none;
+            background-color: var(--container-bg);
+            color: var(--text-color);
+        }
 
-                .search-box input::placeholder {
-                    color: var(--text-color);
-                    opacity: 0.7;
-                }
+        .search-box input::placeholder {
+            color: var(--text-color);
+            opacity: 0.7;
+        }
 
         .list, .favorites-list {
             list-style: none;
@@ -150,31 +151,33 @@
             max-height: 400px;
         }
 
-            .list li, .favorites-list li {
-                padding: 20px;
-                margin: 10px;
-                background: var(--card-bg);
-                border-radius: 12px;
-                box-shadow: 0 4px 10px var(--card-shadow);
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                color: var(--text-color);
-            }
+        .list li, .favorites-list li {
+            padding: 20px;
+            margin: 10px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 10px var(--card-shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-color);
+        }
 
-                .list li:hover, .favorites-list li:hover {
-                    box-shadow: 0 6px 12px var(--card-shadow);
-                }
+        .list li:hover, .favorites-list li:hover {
+            box-shadow: 0 6px 12px var(--card-shadow);
+        }
 
         .icons .icon {
             color: var(--icon-color);
             font-size: 24px;
             cursor: pointer;
+            transition: color 0.3s ease;
         }
 
-            .icons .icon:hover {
-                color: var(--icon-hover);
-            }
+        .icons .icon:hover {
+            color: var(--icon-hover);
+            transform: scale(1.1);
+        }
 
         footer {
             margin-top: 20px;
@@ -182,14 +185,14 @@
             text-align: center;
         }
 
-            footer a {
-                color: var(--icon-hover);
-                text-decoration: none;
-            }
+        footer a {
+            color: var(--icon-hover);
+            text-decoration: none;
+        }
 
-                footer a:hover {
-                    text-decoration: underline;
-                }
+        footer a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -254,24 +257,30 @@
         // Ürünleri harici dosyadan yükle ve alfabetik sıraya diz
         function loadProducts() {
             fetch('urunler.txt')
-                .then(response => response.text())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
                 .then(data => {
                     const items = data.split('\n')
                         .filter(line => line.trim() !== '')
                         .map(line => line.split(' - '))
                         .sort((a, b) => a[0].localeCompare(b[0], 'tr'));
 
+                    fruitList.innerHTML = ''; // Eski listeyi temizleyelim
                     items.forEach(([name, code]) => {
                         const li = document.createElement('li');
                         li.innerHTML = `
-                                <div>
-                                    <strong>${name}</strong>
-                                    <small>Kasa Kodu: ${code}</small>
-                                </div>
-                                <div class="icons">
-                                    <span class="icon" onclick="addToFavorites('${name}', '${code}')">⭐</span>
-                                </div>
-                            `;
+                            <div>
+                                <strong>${name}</strong>
+                                <small>Kasa Kodu: ${code}</small>
+                            </div>
+                            <div class="icons">
+                                <span class="icon" role="button" aria-label="Favorilere ekle" onclick="addToFavorites('${name}', '${code}')">⭐</span>
+                            </div>
+                        `;
                         fruitList.appendChild(li);
                     });
                 })
@@ -284,6 +293,9 @@
                 storedFavorites.push({ name, code });
                 localStorage.setItem('favorites', JSON.stringify(storedFavorites));
                 loadFavorites();
+                
+                // Geri bildirim mesajı
+                alert(`${name} favorilere eklendi!`);
             }
         }
 
@@ -293,14 +305,14 @@
             storedFavorites.forEach(item => {
                 const li = document.createElement('li');
                 li.innerHTML = `
-                        <div>
-                            <strong>${item.name}</strong>
-                            <small>Kasa Kodu: ${item.code}</small>
-                        </div>
-                        <div class="icons">
-                            <span class="icon" onclick="removeFromFavorites('${item.name}', '${item.code}')">❌</span>
-                        </div>
-                    `;
+                    <div>
+                        <strong>${item.name}</strong>
+                        <small>Kasa Kodu: ${item.code}</small>
+                    </div>
+                    <div class="icons">
+                        <span class="icon" role="button" aria-label="Favorilerden çıkar" onclick="removeFromFavorites('${item.name}', '${item.code}')">❌</span>
+                    </div>
+                `;
                 favoritesList.appendChild(li);
             });
         }
@@ -312,6 +324,9 @@
                 storedFavorites.splice(index, 1);
                 localStorage.setItem('favorites', JSON.stringify(storedFavorites));
                 loadFavorites();
+                
+                // Geri bildirim mesajı
+                alert(`${name} favorilerden çıkarıldı!`);
             }
         }
 
