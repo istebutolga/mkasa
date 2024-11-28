@@ -359,40 +359,39 @@
         });
 
         // Ürünleri harici dosyadan yükle ve alfabetik sıraya diz
-        function loadProducts() {
-            fetch('urunler.txt')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.text();
-                })
-                .then(data => {
-                    const items = data.split('\n')
-                        .filter(line => line.trim() !== '')
-                        .map(line => line.split(' - '))
-                        .sort((a, b) => a[0].localeCompare(b[0], 'tr'));
+        async function loadProducts() {
+            try {
+                const response = await fetch('urunler.txt');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.text();
+                const items = data.split('\n')
+                    .filter(line => line.trim() !== '')
+                    .map(line => line.split(' - '))
+                    .sort((a, b) => a[0].localeCompare(b[0], 'tr'));
 
-                    fruitList.innerHTML = ''; // Eski listeyi temizleyelim
-                    items.forEach(([name, code, imageUrl]) => {
-                        const imageSrc = imageUrl ? imageUrl : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShIbHkyLtofVVgvXvi9RCFbbtegkcKeXCU8uBDuncOBh0jpu9s41sdYmM&s=10';
-                        const li = document.createElement('li');
-                        li.innerHTML = `
-                            <div class="item-info">
-                                <img src="${imageSrc}" alt="${name}" class="item-image">
-                                <div>
-                                    <div class="item-name">${name}</div>
-                                    <div class="item-code">Kasa Kodu: ${code}</div>
-                                </div>
+                fruitList.innerHTML = ''; // Eski listeyi temizleyelim
+                items.forEach(([name, code, imageUrl]) => {
+                    const imageSrc = imageUrl ? imageUrl : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShIbHkyLtofVVgvXvi9RCFbbtegkcKeXCU8uBDuncOBh0jpu9s41sdYmM&s=10';
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <div class="item-info">
+                            <img src="${imageSrc}" alt="${name}" class="item-image">
+                            <div>
+                                <div class="item-name">${name}</div>
+                                <div class="item-code">Kasa Kodu: ${code}</div>
                             </div>
-                            <div class="icons">
-                                <span class="icon" role="button" aria-label="Favorilere ekle" onclick="addToFavorites('${name}', '${code}')">⭐</span>
-                            </div>
-                        `;
-                        fruitList.appendChild(li);
-                    });
-                })
-                .catch(error => console.error('Ürünler yüklenirken bir hata oluştu:', error));
+                        </div>
+                        <div class="icons">
+                            <span class="icon" role="button" aria-label="Favorilere ekle" onclick="addToFavorites('${name}', '${code}')">⭐</span>
+                        </div>
+                    `;
+                    fruitList.appendChild(li);
+                });
+            } catch (error) {
+                console.error('Ürünler yüklenirken bir hata oluştu:', error);
+            }
         }
 
         // Favorilere ekle
