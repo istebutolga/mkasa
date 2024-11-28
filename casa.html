@@ -248,6 +248,36 @@
         footer a:hover {
             text-decoration: underline;
         }
+
+        .cookie-banner {
+            position: fixed;
+            bottom: 10px;
+            background: var(--container-bg);
+            padding: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: calc(100% - 40px);
+            max-width: 600px;
+            margin: 0 20px;
+        }
+
+        .cookie-banner button {
+            background: var(--icon-hover);
+            border: none;
+            padding: 10px 20px;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .cookie-banner button:hover {
+            background: #e65c00;
+        }
     </style>
 </head>
 <body>
@@ -285,6 +315,11 @@
         Copyright By Tolga Öztürk
         (<a href="https://instagram.com/tolgaozturkofficial" target="_blank">Instagram Profili</a>)
     </footer>
+
+    <div class="cookie-banner" id="cookieBanner">
+        <span>Bu site çerezleri kullanmaktadır. Devam ederek çerez kullanımını kabul etmiş olursunuz.</span>
+        <button onclick="acceptCookies()">Kabul Et</button>
+    </div>
 
     <script>
         const darkModeSwitch = document.getElementById('darkModeSwitch');
@@ -357,16 +392,24 @@
         function loadFavorites() {
             favoritesList.innerHTML = '';
             storedFavorites.forEach(item => {
-                const li = document.createElement('li');
-                li.innerHTML = `
-                    <div class="item-name">${item.name}</div>
-                    <div class="item-code">Kasa Kodu: ${item.code}</div>
-                    <div class="icons">
-                        <span class="icon" role="button" aria-label="Favorilerden çıkar" onclick="removeFromFavorites('${item.name}', '${item.code}')">❌</span>
-                    </div>
-                `;
-                favoritesList.appendChild(li);
+                if (item.name && item.code) {
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-code">Kasa Kodu: ${item.code}</div>
+                        <div class="icons">
+                            <span class="icon" role="button" aria-label="Favorilerden çıkar" onclick="removeFromFavorites('${item.name}', '${item.code}')">❌</span>
+                        </div>
+                    `;
+                    favoritesList.appendChild(li);
+                }
             });
+
+            // `undefined` ürünleri temizle
+            const validFavorites = storedFavorites.filter(item => item.name && item.code);
+            if (validFavorites.length !== storedFavorites.length) {
+                localStorage.setItem('favorites', JSON.stringify(validFavorites));
+            }
         }
 
         // Favorilerden çıkar
@@ -391,10 +434,21 @@
             });
         }
 
+        // Çerez kabul etme
+        function acceptCookies() {
+            localStorage.setItem('cookiesAccepted', 'true');
+            document.getElementById('cookieBanner').style.display = 'none';
+        }
+
         // Sayfa yüklendiğinde çalıştır
         document.addEventListener('DOMContentLoaded', () => {
             loadProducts();
             loadFavorites();
+
+            // Çerezler kabul edildiyse banner'ı gizle
+            if (localStorage.getItem('cookiesAccepted') === 'true') {
+                document.getElementById('cookieBanner').style.display = 'none';
+            }
         });
     </script>
 </body>
