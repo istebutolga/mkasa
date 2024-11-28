@@ -137,6 +137,8 @@
             width: 100%;
             margin-bottom: 20px;
             position: relative;
+            display: flex;
+            align-items: center;
         }
 
         .search-box input {
@@ -163,16 +165,24 @@
             opacity: 0.7;
         }
 
-        .search-icon {
+        .search-icon, .voice-icon {
             position: absolute;
-            left: 15px;
             top: 50%;
             transform: translateY(-50%);
             font-size: 20px;
             color: var(--icon-color);
+            cursor: pointer;
         }
 
-        .search-box input:focus + .search-icon {
+        .search-icon {
+            left: 15px;
+        }
+
+        .voice-icon {
+            right: 15px;
+        }
+
+        .search-box input:focus + .search-icon, .voice-icon:hover {
             color: var(--icon-hover);
         }
 
@@ -323,6 +333,7 @@
                    placeholder="Ürün arayın..."
                    onkeyup="filterList()" />
             <span class="search-icon">🔍</span>
+            <span class="voice-icon" onclick="startVoiceRecognition()">🎤</span>
         </div>
         <ul class="list" id="fruitList">
             <!-- Ürünler buraya yüklenecek -->
@@ -474,6 +485,39 @@
             });
 
             noResultMessage.style.display = found ? 'none' : 'block';
+        }
+
+        // Sesli arama başlat
+        function startVoiceRecognition() {
+            if (!('webkitSpeechRecognition' in window)) {
+                alert("Tarayıcınız sesli aramayı desteklemiyor.");
+                return;
+            }
+
+            const recognition = new webkitSpeechRecognition();
+            recognition.lang = "tr-TR";
+            recognition.continuous = false;
+            recognition.interimResults = false;
+
+            recognition.onstart = function() {
+                console.log("Sesli arama başlatıldı");
+            };
+
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript;
+                searchInput.value = transcript;
+                filterList();
+            };
+
+            recognition.onerror = function(event) {
+                console.error("Hata oluştu:", event.error);
+            };
+
+            recognition.onend = function() {
+                console.log("Sesli arama sona erdi");
+            };
+
+            recognition.start();
         }
 
         // Çerez kabul etme
